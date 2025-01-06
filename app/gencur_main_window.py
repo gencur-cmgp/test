@@ -1,66 +1,46 @@
-### GUI imports
-from guizero import *
-from gencur_main import *
+# Import GUI library and backend functions
+from guizero import App, Box, Text, TextBox, PushButton, Picture
+from gencur_main import calculate_cml
+from gencur_config import APP_TITLE, APP_WIDTH, APP_HEIGHT
 
-### GUI functions
-def my_first_gui_function():
-    # Získání hodnot z textových polí
+# GUI functions
+def display_cml():
+    """
+    Fetch inputs from GUI, calculate CML, and display the result.
+    """
     try:
-        weight = float(txtbox_weight.value)  # Hmotnost
-        activity_factor = float(txtbox_af.value)  # Aktivitní faktor
-        
-        # Výpočet BMR
-        bmr = weight * 24.2
-        
-        # Výpočet CML
-        cml = bmr * activity_factor
-        
-        # Aktualizace textu uvítání s výsledkem CML
-        text_cml.value = f"Hi, user! Your Calorie Maintenance Level (CML) is {cml:.2f} kcal/day."
-        
+        weight = float(txtbox_weight.value)
+        activity_factor = float(txtbox_af.value)
+        cml = calculate_cml(weight, activity_factor)
+        text_cml.value = f"Your Calorie Maintenance Level (CML) is {cml:.2f} kcal/day."
     except ValueError:
-        # Pokud jsou hodnoty neplatné (např. uživatel nezadá číslo)
         text_cml.value = "Please enter valid numbers for weight and activity factor."
 
-        
-### GUI App
-app = App(title="My App", width=775, height=650)
+# App configuration
+app = App(title=APP_TITLE, width=APP_WIDTH, height=APP_HEIGHT)
 
-## Window 1
+# Main window
 window1 = Box(app, visible=True)
 
 # Welcome text
-text_welcome = Text(window1, text=(f"Hi, user!"))
+text_welcome = Text(window1, text="Hi, user!")
 
-# Input activity factor
-text_af = Text(
-    window1,
-    text=(
-        "        Please enter your activity factor for today:"
-    )
-)
+# Input: Activity Factor
+text_af = Text(window1, text="Enter your activity factor:")
 txtbox_af = TextBox(window1)
 
-# Input weight
-text_weight = Text(
-    window1,
-    text=(f"Please enter your weight in kilograms (kg):")
-)
+# Input: Weight
+text_weight = Text(window1, text="Enter your weight in kilograms (kg):")
 txtbox_weight = TextBox(window1)
 
-# Output calorie maintenance level
-text_cml = Text(window1, text ="")
+# Output: CML
+text_cml = Text(window1, text="")
 
-welcome_button = PushButton(window1,command=my_first_gui_function)
+# Button to calculate CML
+btn_calculate = PushButton(window1, text="Calculate CML", command=display_cml)
 
 # Display an image
-image_widget = Picture(
-    window1,
-    image="resources/images/calculating_cml.png",
-    width=680,
-    height=480,
-    align="bottom"
-)
+image_widget = Picture(window1, image="resources/images/calculating_cml.png", width=680, height=480, align="bottom")
 
+# Run the app
 app.display()
-

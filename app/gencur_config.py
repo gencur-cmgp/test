@@ -1,27 +1,14 @@
-### Program imports
+import os
 import datetime as dt
 from datetime import date, datetime, timedelta
-import os
-import sys
 
-### Program configuration
-
-## Working directory configuration
-"""
-This section configures the working directory
-    to ensure the script runs in the current file location.
-"""
-# Get the current working directory (where the script is located)
+# Working directory configuration
 current_directory = os.path.dirname(os.path.abspath(__file__))
-# Change the current working directory
 os.chdir(current_directory)
-# Now you can perform operations in the current directory
+
+# Constants
+APP_TITLE = "My Future App"
+APP_WIDTH = 775
+APP_HEIGHT = 650
+
 print(f"Current working directory is: {os.getcwd()}")
-
-## Backend import to frontend
-
-
-## A Music file configuration
-
-
-## Google Sheets database configuration
