@@ -1,5 +1,3 @@
-# gencur_config.py
-
 import os
 
 # Constants
